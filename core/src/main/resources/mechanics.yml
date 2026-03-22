@@ -77,7 +77,7 @@ stringblock:
       - NETHERITE
     sapling_growth_check_delay: 4000
     disable_vanilla_strings: false
-    enabled: true
+    enabled: false
 
 chorusblock:
     tool_types:
@@ -87,7 +87,7 @@ chorusblock:
       - GOLDEN
       - DIAMOND
       - NETHERITE
-    enabled: true
+    enabled: false
 
 # Custom stairs, slabs, doors, trapdoors, grates using waxed copper blocks
 shaped_block:
@@ -104,7 +104,7 @@ shaped_block:
     convert_vanilla_waxed: true
     # Handle waxed copper in world generation (Trial Chambers, etc.)
     handle_world_generation: true
-    enabled: true
+    enabled: false
 
 furniture:
   default_furniture_type: DISPLAY_ENTITY # DISPLAY_ENTITY, ITEM_FRAME, GLOW_ITEM_FRAME

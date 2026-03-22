@@ -161,7 +161,7 @@ Pack:
     # with usual tools (native windows unzip, 7zip, winrar, etc) without altering
     # its integrity. Be careful if you activate this option to not try to extract
     # the pack, or you might fill your disk.
-    protection: true
+    protection: false
     comment: "The content of this texture pack
       \nbelongs to the owner of the Oraxen
       \nplugin and any complete or partial
@@ -184,7 +184,7 @@ Pack:
     merge_item_base_models: false
 
   upload:
-    enabled: true
+    enabled: false
     type: polymath #transfer.sh, polymath, or self-host
     polymath:
       server: atlas.oraxen.com # you can also host your own polymath instance
@@ -307,9 +307,9 @@ Pack:
 Misc:
   # If this is set to true, Oraxen will reset recipes on reload. This might create conflicts with other plugins
   # but this makes the things easier if you want to try your oraxen recipes.
-  reset_recipes: true
+  reset_recipes: false
   # Will add all recipes a player has permission for, to the in-game recipe books
-  add_recipes_to_book: true
+  add_recipes_to_book: false
 
   # This will hide the red numbers on the side of scoreboards
   hide_scoreboard_numbers: false

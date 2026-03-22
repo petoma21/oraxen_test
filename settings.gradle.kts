@@ -29,32 +29,8 @@ dependencyResolutionManagement {
     }
 }
 
-// Core and Paper NMS modules (always included)
+// 1.21.8 (Paper) 向けの最小構成
 include(
     "core",
-    "v1_20_R1",
-    "v1_20_R2",
-    "v1_20_R3",
-    "v1_20_R4",
-    "v1_21_R1",
-    "v1_21_R2",
-    "v1_21_R3",
-    "v1_21_R4",
-    "v1_21_R5",
-    "v1_21_R6_old",
-    "v1_21_R6"
+    "v1_21_R5"
 )
-
-// Spigot NMS modules (excluded in CI - requires BuildTools to install Spigot artifacts to local Maven)
-if (!isCI) {
-    include(
-        "v1_20_R4_spigot",
-        "v1_21_R1_spigot",
-        "v1_21_R2_spigot",
-        "v1_21_R3_spigot",
-        "v1_21_R4_spigot",
-        "v1_21_R5_spigot",
-        "v1_21_R6_old_spigot",
-        "v1_21_R6_spigot"
-    )
-}

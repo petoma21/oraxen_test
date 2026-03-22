@@ -1,0 +1,59 @@
+# NoteBlock-only custom ore template
+#
+# This file is intentionally isolated so you can tune ore mining behavior
+# without touching unrelated example items.
+#
+# Tuning guide:
+# - hardness: break speed (higher = slower)
+# - drop.minimal_type: minimum tool tier (WOODEN/STONE/IRON/DIAMOND/NETHERITE)
+# - drop.best_tools: allowed tool family (usually PICKAXE)
+# - drop.silktouch / drop.fortune: enchant behavior
+# - blast_resistant / immovable: explosion/piston behavior
+
+mythril_fragment:
+  displayname: "<#7AD9FF>Mythril Fragment"
+  material: PAPER
+  Pack:
+    generate_model: true
+    parent_model: "item/generated"
+    textures:
+      - default/mythril_fragment.png
+
+mythril_ore:
+  displayname: "<gradient:#4BC6FF:#7AD9FF>Mythril Ore"
+  material: PAPER
+  Pack:
+    generate_model: true
+    parent_model: block/cube_all
+    # Replace this texture with your own resource-pack file:
+    # assets/oraxen/textures/default/mythril_ore.png
+    textures:
+      - default/mythril_ore
+  Mechanics:
+    noteblock:
+      custom_variation: 40
+      model: mythril_ore
+
+      # Mining/break tuning
+      hardness: 7
+      blast_resistant: false
+      immovable: false
+      can_ignite: false
+      is_falling: false
+
+      # Optional custom sounds
+      block_sounds:
+        break_sound: block.stone.break
+        place_sound: block.stone.place
+
+      # Drop behavior tuning
+      drop:
+        silktouch: true
+        fortune: true
+        minimal_type: IRON
+        best_tools:
+          - PICKAXE
+        loots:
+          - oraxen_item: mythril_fragment
+            probability: 1.0
+

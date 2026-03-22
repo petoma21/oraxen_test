@@ -3,17 +3,14 @@ package io.th0rgal.oraxen.commands;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.ArgumentSuggestions;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
-import dev.jorel.commandapi.arguments.GreedyStringArgument;
 import dev.jorel.commandapi.arguments.IntegerArgument;
 import dev.jorel.commandapi.arguments.TextArgument;
-import io.th0rgal.oraxen.OraxenPlugin;
 import io.th0rgal.oraxen.api.OraxenItems;
 import io.th0rgal.oraxen.config.Message;
 import io.th0rgal.oraxen.items.ItemBuilder;
 import io.th0rgal.oraxen.items.ItemUpdater;
 import io.th0rgal.oraxen.utils.AdventureUtils;
 import io.th0rgal.oraxen.utils.ItemUtils;
-import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,70 +24,15 @@ public class CommandsManager {
         new CommandAPICommand("oraxen")
                 .withAliases("o", "oxn")
                 .withPermission("oraxen.command")
-                .withSubcommands(getDyeCommand(), getInvCommand(), getSimpleGiveCommand(), getGiveCommand(),
+                .withSubcommands(
+                        getSimpleGiveCommand(),
+                        getGiveCommand(),
                         getTakeCommand(),
-                        (new PackCommand()).getPackCommand(),
-                        (new UpdateCommand()).getUpdateCommand(),
-                        (new RepairCommand()).getRepairCommand(),
-                        (new RecipesCommand()).getRecipesCommand(),
-                        (new ReloadCommand()).getReloadCommand(),
-                        (new ReportCommand()).getReportCommand(),
-                        (new DebugCommand()).getDebugCommand(),
-                        (new ModelDataCommand()).getHighestModelDataCommand(),
-                        (new GlyphCommand()).getGlyphCommand(),
-                        (new GlyphInfoCommand()).getGlyphInfoCommand(),
-                        (new ItemInfoCommand()).getItemInfoCommand(),
-                        (new BlockInfoCommand()).getBlockInfoCommand(),
-                        (new HudCommand()).getHudCommand(),
-                        (new LogDumpCommand().getLogDumpCommand()),
-                        (new VersionCommand()).getVersionCommand(),
-                        (new AdminCommand()).getAdminCommand(),
-                        (new SchemaCommand()).getSchemaCommand(),
-                        (new TextEffectCommand()).getTextEffectCommand(),
-                        (new TextEffectCommand()).getTextEffectsListCommand())
+                        (new ReloadCommand()).getReloadCommand())
                 .executes((sender, args) -> {
                     Message.COMMAND_HELP.send(sender);
                 })
                 .register();
-    }
-
-    private Color hex2Rgb(final String colorStr) throws NumberFormatException {
-        return Color.fromRGB(
-                Integer.valueOf(colorStr.substring(1, 3), 16),
-                Integer.valueOf(colorStr.substring(3, 5), 16),
-                Integer.valueOf(colorStr.substring(5, 7), 16));
-    }
-
-    private CommandAPICommand getDyeCommand() {
-        return new CommandAPICommand("dye")
-                .withPermission("oraxen.command.dye")
-                .withArguments(new GreedyStringArgument("color"))
-                .executes((sender, args) -> {
-                    if (sender instanceof final Player player) {
-                        final Color hexColor;
-                        try {
-                            hexColor = hex2Rgb((String) args.get("color"));
-                        } catch (final StringIndexOutOfBoundsException | NumberFormatException e) {
-                            Message.DYE_WRONG_COLOR.send(sender);
-                            return;
-                        }
-                        ItemUtils.dyeItem(player.getInventory().getItemInMainHand(), hexColor);
-                        Message.DYE_SUCCESS.send(sender);
-                    } else
-                        Message.NOT_PLAYER.send(sender);
-                });
-    }
-
-    private CommandAPICommand getInvCommand() {
-        return new CommandAPICommand("inventory")
-                .withAliases("inv")
-                .withPermission("oraxen.command.inventory.view")
-                .executes((sender, args) -> {
-                    if (sender instanceof final Player player)
-                        OraxenPlugin.get().getInvManager().getItemsView(player).open(player);
-                    else
-                        Message.NOT_PLAYER.send(sender);
-                });
     }
 
     @SuppressWarnings("unchecked")
@@ -176,6 +118,7 @@ public class CommandsManager {
                 });
     }
 
+    @SuppressWarnings("unchecked")
     private CommandAPICommand getTakeCommand() {
         return new CommandAPICommand("take")
                 .withPermission("oraxen.command.take")

@@ -1,12 +1,6 @@
 package io.th0rgal.oraxen.compatibilities;
 
-import io.th0rgal.oraxen.compatibilities.provided.blocklocker.BlockLockerCompatibility;
-import io.th0rgal.oraxen.compatibilities.provided.bossshoppro.BossShopProCompatibility;
 import io.th0rgal.oraxen.compatibilities.provided.iris.IrisCompatibility;
-import io.th0rgal.oraxen.compatibilities.provided.mythicmobs.MythicMobsCompatibility;
-import io.th0rgal.oraxen.compatibilities.provided.placeholderapi.PlaceholderAPICompatibility;
-import io.th0rgal.oraxen.compatibilities.provided.skript.SkriptCompatibility;
-import io.th0rgal.oraxen.compatibilities.provided.worldedit.WrappedWorldEdit;
 import io.th0rgal.oraxen.config.Message;
 import io.th0rgal.oraxen.utils.AdventureUtils;
 import io.th0rgal.oraxen.utils.PluginUtils;
@@ -23,20 +17,10 @@ public class CompatibilitiesManager {
     private static final ConcurrentHashMap<String, CompatibilityProvider<?>> ACTIVE_COMPATIBILITY_PROVIDERS = new ConcurrentHashMap<>();
 
     public static void enableNativeCompatibilities() {
-        WrappedWorldEdit.init();
-        WrappedWorldEdit.registerParser();
-        new CompatibilityListener();
-        addCompatibility("PlaceholderAPI", PlaceholderAPICompatibility.class, true);
-        addCompatibility("BossShopPro", BossShopProCompatibility.class, true);
-        addCompatibility("MythicMobs", MythicMobsCompatibility.class, true);
-        addCompatibility("BlockLocker", BlockLockerCompatibility.class, true);
-        addCompatibility("Skript", SkriptCompatibility.class, true);
         addCompatibility("Iris", IrisCompatibility.class, true);
     }
 
     public static void disableCompatibilities() {
-        WrappedWorldEdit.unregister();
-
         ACTIVE_COMPATIBILITY_PROVIDERS.forEach((pluginName, compatibilityProvider) -> disableCompatibility(pluginName));
     }
 

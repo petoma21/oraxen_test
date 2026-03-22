@@ -13,7 +13,6 @@ import io.th0rgal.oraxen.packets.ProtocolLibAdapter;
 import io.th0rgal.oraxen.hud.HudManager;
 import io.th0rgal.oraxen.items.ItemUpdater;
 import io.th0rgal.oraxen.mechanics.MechanicsManager;
-import io.th0rgal.oraxen.mechanics.provided.gameplay.furniture.FurnitureFactory;
 import io.th0rgal.oraxen.nms.GlyphHandlers;
 import io.th0rgal.oraxen.nms.NMSHandlers;
 import io.th0rgal.oraxen.pack.dispatch.PackLoadingManager;
@@ -21,7 +20,6 @@ import io.th0rgal.oraxen.pack.generation.PackVersionManager;
 import io.th0rgal.oraxen.pack.generation.ResourcePack;
 import io.th0rgal.oraxen.pack.upload.UploadManager;
 import io.th0rgal.oraxen.recipes.builders.RecipeBuilder;
-import io.th0rgal.oraxen.recipes.RecipesManager;
 import io.th0rgal.oraxen.sound.SoundManager;
 import io.th0rgal.oraxen.utils.*;
 import io.th0rgal.oraxen.utils.SchedulerUtil;
@@ -144,7 +142,7 @@ public class OraxenPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PackLoadingManager(), this);
         io.th0rgal.oraxen.pack.generation.MultiVersionPackValidator.validateAndLogWarnings();
         resourcePack.generate();
-        RecipesManager.load(this);
+        // レシピは本構成では使用しないため読み込みを無効化
         invManager = new InvManager();
         if (!VersionUtil.atOrAbove("1.21.2"))
             ArmorEquipEvent.registerListener(this);
@@ -177,12 +175,8 @@ public class OraxenPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(this);
-        FurnitureFactory.unregisterEvolution();
         MechanicsManager.unregisterTasks();
         RecipeBuilder.clearAll();
-
-        // Clean up backpack cosmetic entities to prevent ghost armor stands
-        io.th0rgal.oraxen.mechanics.provided.cosmetic.backpack.BackpackCosmeticManager.getInstance().cleanup();
 
         for (Player player : Bukkit.getOnlinePlayers())
             if (GlyphHandlers.isNms())
